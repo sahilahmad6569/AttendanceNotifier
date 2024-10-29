@@ -5,16 +5,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager  # type: ignore
-import os
+from webdriver_manager.chrome import ChromeDriverManager
+from config.settings import USERNAME, PASSWORD, URL, ATTENDANCE_URL  # Import credentials and URLs
 
 def get_attendance():
-    # Retrieve credentials and URLs from environment variables
-    username = os.environ.get("USERNAME")
-    password = os.environ.get("PASSWORD")
-    url = os.environ.get("URL")
-    attendance_url = os.environ.get("ATTENDANCE_URL")
-
     # Initialize WebDriver with options
     options = Options()
     options.add_argument('--headless')  # Enable headless mode
@@ -27,30 +21,35 @@ def get_attendance():
 
     try:
         # Open the login page
-        driver.get(url)
+        driver.get(URL)
         
         # Enter username
         username_field = wait.until(EC.presence_of_element_located((By.ID, "txtun")))
-        username_field.send_keys(username)
+        username_field.send_keys(USERNAME)
         
         # Enter password
         password_field = driver.find_element(By.ID, "txtpass")
-        password_field.send_keys(password)
+        password_field.send_keys(PASSWORD)
         password_field.send_keys(Keys.RETURN)
 
         # Wait for the login to process
-        wait.until(EC.url_changes(url))
+        wait.until(EC.url_changes(URL))
 
         # Navigate to the attendance page
-        driver.get(attendance_url)
+        driver.get(ATTENDANCE_URL)
 
         # Wait for the attendance data to load
         attendance_table = wait.until(
             EC.presence_of_element_located((By.ID, "ContentPlaceHolder1_rptrcontact_lblCumAtt"))
         )
 
-        # Return attendance details
-        return attendance_table.text
+        # Check if attendance_table text is retrieved correctly
+        attendance_text = attendance_table.text.strip()
+        if not attendance_text:
+            print("Attendance data is empty.")
+            return None
+        
+        return attendance_text
 
     except Exception as e:
         print("An error occurred:", e)

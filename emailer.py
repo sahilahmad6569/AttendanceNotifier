@@ -1,20 +1,17 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import os
+from config.settings import SMTP_SERVER, SMTP_PORT, SENDER_EMAIL, SENDER_PASSWORD, RECEIVER_EMAIL
 
 def send_email(subject, cumulative_percentage):
-    # Retrieve SMTP details and email addresses from environment variables
-    smtp_server = os.environ.get("SMTP_SERVER")
-    smtp_port = int(os.environ.get("SMTP_PORT"))
-    sender_email = os.environ.get("SENDER_EMAIL")
-    sender_password = os.environ.get("SENDER_PASSWORD")
-    receiver_email = os.environ.get("RECEIVER_EMAIL")
+    # Check if cumulative_percentage is None
+    if cumulative_percentage is None:
+        cumulative_percentage = "No data available"  # Handle the case of no data
 
     # Create the email
     msg = MIMEMultipart()
-    msg["From"] = sender_email
-    msg["To"] = receiver_email
+    msg["From"] = SENDER_EMAIL
+    msg["To"] = RECEIVER_EMAIL
     msg["Subject"] = subject
 
     # Create the HTML body
@@ -23,9 +20,9 @@ def send_email(subject, cumulative_percentage):
 
     # Send the email
     try:
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()
-            server.login(sender_email, sender_password)
+            server.login(SENDER_EMAIL, SENDER_PASSWORD)
             server.send_message(msg)
         print("Email sent successfully!")
     except Exception as e:
