@@ -2,7 +2,7 @@ name: Daily Attendance Report
 
 on:
   schedule:
-    - cron: '15 3 * * *'  # This will run the script every day at 6 PM UTC
+    - cron: '34 3 * * *'  # This will run the script every day at 6 PM UTC
   workflow_dispatch:  # This allows you to manually trigger the workflow
 
 jobs:
