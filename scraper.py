@@ -6,9 +6,15 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
-from config.settings import USERNAME, PASSWORD, URL, ATTENDANCE_URL  # Import credentials and URLs
+import os  # Importing os to access environment variables
 
 def get_attendance():
+    # Retrieve sensitive information from environment variables
+    USERNAME = os.getenv('USERNAME')
+    PASSWORD = os.getenv('PASSWORD')
+    URL = os.getenv('URL')
+    ATTENDANCE_URL = os.getenv('ATTENDANCE_URL')
+
     # Initialize WebDriver with options
     options = Options()
     options.add_argument('--headless')  # Enable headless mode

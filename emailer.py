@@ -1,12 +1,19 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from config.settings import SMTP_SERVER, SMTP_PORT, SENDER_EMAIL, SENDER_PASSWORD, RECEIVER_EMAIL
+import os  # Importing os to access environment variables
 
 def send_email(subject, cumulative_percentage):
     # Check if cumulative_percentage is None
     if cumulative_percentage is None:
         cumulative_percentage = "No data available"  # Handle the case of no data
+
+    # Retrieve sensitive information from environment variables
+    SMTP_SERVER = os.getenv('SMTP_SERVER')
+    SMTP_PORT = int(os.getenv('SMTP_PORT'))
+    SENDER_EMAIL = os.getenv('SENDER_EMAIL')
+    SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
+    RECEIVER_EMAIL = os.getenv('RECEIVER_EMAIL')
 
     # Create the email
     msg = MIMEMultipart()
