@@ -24,7 +24,7 @@ jobs:
 
     - name: Run attendance script
       run: |
-        python your_script.py  # Replace with your actual script name
+        python main.py  # Replace with your actual script name
       env:
         LOGIN_URL: ${{ secrets.LOGIN_URL }}
         ATTENDANCE_URL: ${{ secrets.ATTENDANCE_URL }}
