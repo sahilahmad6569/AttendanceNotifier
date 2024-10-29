@@ -1,0 +1,39 @@
+name: Daily Attendance Report
+
+on:
+  schedule:
+    - cron: '0 18 * * *'  # This will run the script every day at 6 PM UTC
+  workflow_dispatch:  # This allows you to manually trigger the workflow
+
+jobs:
+  send-attendance-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.3'  # Specify your Python version
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # Adjust based on your dependencies
+
+    - name: Run attendance script
+      run: |
+        python your_script.py  # Replace with your actual script name
+      env:
+        LOGIN_URL: ${{ secrets.LOGIN_URL }}
+        ATTENDANCE_URL: ${{ secrets.ATTENDANCE_URL }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+        SUBJECT: ${{ secrets.SUBJECT }}
+        URL: ${{ secrets.URL }}
