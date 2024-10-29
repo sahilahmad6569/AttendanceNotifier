@@ -7,7 +7,7 @@ def daily_attendance_check():
     attendance_data = get_attendance()
     
     # Send the data via email
-    send_email("Your Daily Attendance Report", attendance_data)
+    send_email("Daily Attendance Report", attendance_data)
 
 if __name__ == "__main__":
     print("Starting attendance notifier...")
