@@ -1,4 +1,3 @@
-import os
 from scraper import get_attendance
 from emailer import send_email
 
