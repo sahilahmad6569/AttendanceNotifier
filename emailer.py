@@ -47,7 +47,7 @@ def create_html_body(cumulative_percentage):
                 </p>
                 <div style="text-align: center; margin-top: 20px;">
                     <p style="font-size: 24px; color: #333333; font-weight: bold;">Cumulative Attendance:</p>
-                    <p style="font-size: 48px; color: #4CAF50; font-weight: bold; margin: 10px;">{cumulative_percentage}%</p>
+                    <p style="font-size: 42px; color: #4CAF50; font-weight: bold; margin: 10px;">{cumulative_percentage}%</p>
                 </div>
                 <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
                 <p style="font-size: 14px; color: #888888; text-align: center;">
