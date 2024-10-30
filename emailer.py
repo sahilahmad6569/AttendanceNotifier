@@ -39,10 +39,24 @@ def create_html_body(cumulative_percentage):
     # Create a simple HTML body
     html = f"""\
     <html>
-        <body>
-            <h2>Your Daily Attendance Report</h2>
-            <p>Your cumulative attendance percentage is: <strong>{cumulative_percentage}%</strong></p>
-            <p>Keep up the good work!</p>
+        <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
+            <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                <h2 style="color: #4CAF50; text-align: center;">Daily Attendance Report</h2>
+                <p style="font-size: 16px; color: #555555; line-height: 1.5; text-align: center;">
+                    Hello! Here is your attendance summary for today.
+                </p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="font-size: 24px; color: #333333; font-weight: bold;">Cumulative Attendance:</p>
+                    <p style="font-size: 48px; color: #4CAF50; font-weight: bold; margin: 10px;">{cumulative_percentage}%</p>
+                </div>
+                <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+                <p style="font-size: 14px; color: #888888; text-align: center;">
+                    Stay consistent and maintain your attendance to achieve your goals!
+                </p>
+            </div>
+            <footer style="text-align: center; font-size: 12px; color: #aaaaaa; margin-top: 20px;">
+                <p>If you have any questions, please contact your support team.</p>
+            </footer>
         </body>
     </html>
     """
