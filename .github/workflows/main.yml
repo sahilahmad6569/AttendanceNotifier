@@ -1,5 +1,6 @@
 name: Daily Attendance Report
 
+# Trigger the workflow on a schedule and manually
 on:
   schedule:
     - cron: '30 3 * * *'  # This will run the script every day at 6 PM UTC
@@ -7,33 +8,34 @@ on:
 
 jobs:
   send-attendance-report:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # The job will run on the latest version of Ubuntu
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Check out the repository code
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v2  # Set up the Python environment
       with:
-        python-version: '3.12.3'  # Specify your Python version
+        python-version: '3.12.3'  # Specify the version of Python to use
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # Adjust based on your dependencies
+        pip install -r requirements.txt  # Install dependencies from requirements.txt
 
     - name: Run attendance script
       run: |
-        python main.py  # Replace with your actual script name
+        python main.py  # Execute the main Python script
       env:
-        LOGIN_URL: ${{ secrets.LOGIN_URL }}
-        ATTENDANCE_URL: ${{ secrets.ATTENDANCE_URL }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
-        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-        SMTP_PORT: ${{ secrets.SMTP_PORT }}
-        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-        SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
-        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-        SUBJECT: ${{ secrets.SUBJECT }}
-        URL: ${{ secrets.URL }}
+        # Set environment variables from GitHub Secrets for security
+        LOGIN_URL: ${{ secrets.LOGIN_URL }}  
+        ATTENDANCE_URL: ${{ secrets.ATTENDANCE_URL }}  
+        USERNAME: ${{ secrets.USERNAME }}  
+        PASSWORD: ${{ secrets.PASSWORD }}  
+        SMTP_SERVER: ${{ secrets.SMTP_SERVER }}  
+        SMTP_PORT: ${{ secrets.SMTP_PORT }}  
+        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}  
+        SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}  
+        RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}  
+        SUBJECT: ${{ secrets.SUBJECT }}  
+        URL: ${{ secrets.URL }}  

@@ -9,34 +9,34 @@ def send_email(subject, cumulative_percentage):
         cumulative_percentage = "No data available"  # Handle the case of no data
 
     # Retrieve sensitive information from environment variables
-    SMTP_SERVER = os.getenv('SMTP_SERVER')
-    SMTP_PORT = int(os.getenv('SMTP_PORT'))
-    SENDER_EMAIL = os.getenv('SENDER_EMAIL')
-    SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
-    RECEIVER_EMAIL = os.getenv('RECEIVER_EMAIL')
+    SMTP_SERVER = os.getenv('SMTP_SERVER')  # SMTP server address
+    SMTP_PORT = int(os.getenv('SMTP_PORT'))  # SMTP server port
+    SENDER_EMAIL = os.getenv('SENDER_EMAIL')  # Sender's email address
+    SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')  # Sender's email password
+    RECEIVER_EMAIL = os.getenv('RECEIVER_EMAIL')  # Receiver's email address
 
-    # Create the email
+    # Create the email message
     msg = MIMEMultipart()
-    msg["From"] = SENDER_EMAIL
-    msg["To"] = RECEIVER_EMAIL
-    msg["Subject"] = subject
+    msg["From"] = SENDER_EMAIL  # Set sender's email
+    msg["To"] = RECEIVER_EMAIL  # Set receiver's email
+    msg["Subject"] = subject  # Set email subject
 
-    # Create the HTML body
+    # Create the HTML body for the email
     body = create_html_body(cumulative_percentage)
-    msg.attach(MIMEText(body, "html"))
+    msg.attach(MIMEText(body, "html"))  # Attach the HTML body to the email
 
     # Send the email
     try:
-        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SENDER_EMAIL, SENDER_PASSWORD)
-            server.send_message(msg)
-        print("Email sent successfully!")
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:  # Connect to the SMTP server
+            server.starttls()  # Upgrade the connection to secure
+            server.login(SENDER_EMAIL, SENDER_PASSWORD)  # Log in to the email account
+            server.send_message(msg)  # Send the email
+        print("Email sent successfully!")  # Confirmation message
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"Failed to send email: {e}")  # Print error message if sending fails
 
 def create_html_body(cumulative_percentage):
-    # Create a simple HTML body
+    # Create a simple HTML body for the email
     html = f"""\
     <html>
         <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
@@ -60,4 +60,4 @@ def create_html_body(cumulative_percentage):
         </body>
     </html>
     """
-    return html
+    return html  # Return the generated HTML body
